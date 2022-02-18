@@ -1,33 +1,30 @@
-function compute()
-{
-    var principal = document.getElementById("principal").value;
-
-    if(principal == "" || principal <= 0)
-    {
-        alert("Enter a positive number");
-        document.getElementById("principal").focus();
-        return;
-    }
-
-    var rate = document.getElementById("rate").value;
-    var years = document.getElementById("years").value;
+function compute() {
+    //Get the values and calculate 
+    var principal = parseFloat(document.getElementById("principal").value);
+    var rate = parseFloat(document.getElementById("rate").value);
+    var years = parseInt(document.getElementById("years").value);
     var interest = principal * years * rate / 100;
+    var yearInTheFuture = new Date().getFullYear() + years;
+    //Create the Interest text
+    document.getElementById("result").innerHTML = "Interest : If you deposit <mark>" + principal + "</mark>,<br/>" +
+        "at an interest rate of <mark>" + rate + "</mark>,<br/>" +
+        "You will receive an amount of <mark>" + interest + "</mark>,<br/> " +
+        "in the year <mark>" + yearInTheFuture + "</mark>";
 
-    var dateNow = new Date();
-    var yearNow = parseInt(dateNow.getFullYear()) + parseInt(years);
-    
-    var resultDisplay = document.getElementById("result");
-    resultDisplay.innerHTML = "If you deposit " + "<span class='highlight'>" + principal + "</span>."  + ", <br> at an interest rate of "+ "<span class='highlight'>" + rate + "</span>%." + "<br> You will receive an amount of " + "<span class='highlight'>" + interest + "</span>" + ", <br> in the year " + "<span class='highlight'>" + yearNow + "</span>";
 }
 
-function SliderValue()
-{
-    var slider = document.getElementById("rate");
-    var output = document.getElementById("rate_display");
-    output.innerHTML = slider.value;
+//update ther ate value
+function getSliderValue() {
+    document.getElementById("rateSpan").innerHTML = document.getElementById("rate").value;
+}
 
-    slider.oninput = function() 
-    {
-        output.innerHTML = this.value;
-    }  
+//Check for positive values
+function validateAmount() {
+    var principal = document.getElementById("principal").value;
+    var biggerThanZero = parseInt(principal) > 0;
+    if (!biggerThanZero) {
+        alert("Enter a positive number");
+        document.getElementById("principal").focus();
+    }
+
 }
